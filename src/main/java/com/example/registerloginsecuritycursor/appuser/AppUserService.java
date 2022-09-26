@@ -17,7 +17,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AppUserService implements UserDetailsService, AppUserServiceInt {
     private final static String USER_NOT_FOUND_MSG =
-            "user with email %s not found";
+            "user with username %s not found";
     private final AppUserRepo appUserRepo;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
