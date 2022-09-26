@@ -4,11 +4,16 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -25,18 +30,27 @@ public class AppUser implements UserDetails {
     @Column(name = "id")
     private Long id;
     @Column(name = "first_name")
+    @NotEmpty(message = "First name cannot be empty.")
     private String firstName;
     @Column(name = "last_name")
+    @NotEmpty(message = "Last name cannot be empty.")
     private String lastName;
     @Column(name = "username")
+    @NotEmpty(message = "Username cannot be empty.")
+    @Size(min = 4)
     private String username;
     @Column(name = "email")
+    @NotEmpty(message = "User's email cannot be empty.")
+    @Email(message = "Please provide a valid email id")
     private String email;
     @Column(name = "password")
+    @NotEmpty(message = "Password can not be empty")
     private String password;
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private AppUserRole appUserRole;
+
+    @Column(name = "enabled")
     private boolean enabled = true;
 
     public AppUser(String firstName,

@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to the bookstore</title>
-<!--    Look at books button-->
-<!--    register button and login button-->
-<a href="/auth/login"> Login </a>
-    <a href="/auth/register"> Registration</a>
+    <meta name="viewport" content="width=device-width, initial-scale=1,initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <title>Employee directory</title>
+</head>
+<meta charset="UTF-8">
+<title>Welcome to the bookstore</title>
+<h2> Welcome to the page</h2>
+<a th:href="@{/auth/login}" class="btn btn-primary btn-sm mb-3"> Login</a>
+
+<a th:href="@{/users/register}" class="btn btn-primary btn-sm mb-3"> Register </a>
+
+<a th:href="@{/users/list}" class="btn btn-primary btn-sm mb-3"> Users Table </a>
+
+
 </head>
 <body>
 
