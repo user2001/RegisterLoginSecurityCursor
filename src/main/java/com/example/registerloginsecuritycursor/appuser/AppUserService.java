@@ -3,7 +3,7 @@ package com.example.registerloginsecuritycursor.appuser;
 
 import com.example.registerloginsecuritycursor.exception.UserAlreadyExistException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,16 +22,16 @@ public class AppUserService implements UserDetailsService, AppUserServiceInt {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return appUserRepo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(
+        AppUser appUser = appUserRepo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(
                 String.format(USER_NOT_FOUND_MSG, username)
         ));
+        return new User(appUser.getUsername(), appUser.getPassword(), appUser.getAuthorities());
     }
 
     public void singUpUser(AppUser appUser) throws UserAlreadyExistException {
-        if(checkIfUserExist(appUser.getUsername())){
+        if (checkIfUserExist(appUser.getUsername())) {
             throw new UserAlreadyExistException("User with this username already exist");
         }
         String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());

@@ -4,7 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -37,7 +34,6 @@ public class AppUser implements UserDetails {
     private String lastName;
     @Column(name = "username")
     @NotEmpty(message = "Username cannot be empty.")
-    @Size(min = 4)
     private String username;
     @Column(name = "email")
     @NotEmpty(message = "User's email cannot be empty.")
@@ -63,7 +59,7 @@ public class AppUser implements UserDetails {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
-        this.email=email;
+        this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
     }

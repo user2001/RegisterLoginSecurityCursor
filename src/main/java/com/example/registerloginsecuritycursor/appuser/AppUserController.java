@@ -30,6 +30,7 @@ public class AppUserController {
         theModel.addAttribute("appUser", appUser);
         return "registration";
     }
+
     @GetMapping("/add")
     public String addUser(Model theModel) {
         AppUser appUser = new AppUser();
