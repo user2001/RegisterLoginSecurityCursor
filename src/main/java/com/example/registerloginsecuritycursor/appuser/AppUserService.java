@@ -43,7 +43,7 @@ public class AppUserService implements UserDetailsService, AppUserServiceInt {
 
     @Override
     public List<AppUser> findAll() {
-        return appUserRepo.findAll();
+        return appUserRepo.findAllByOrderByLastNameAsc();
     }
 
     @Override

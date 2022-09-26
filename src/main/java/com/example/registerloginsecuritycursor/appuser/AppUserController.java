@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/users")
 public class AppUserController {
     private final AppUserService appUserService;
-    private final AppUserRepo appUserRepo;
 
     @GetMapping("/list")
     public String listOfUsers(Model theModel) {
@@ -31,6 +30,12 @@ public class AppUserController {
         theModel.addAttribute("appUser", appUser);
         return "registration";
     }
+    @GetMapping("/add")
+    public String addUser(Model theModel) {
+        AppUser appUser = new AppUser();
+        theModel.addAttribute("appUser", appUser);
+        return "registration";
+    }
 
     @PostMapping("/save")
     public String saveNewUser(@Valid @ModelAttribute("appUser") AppUser appUser, BindingResult result) {
@@ -39,7 +44,7 @@ public class AppUserController {
         }
         try {
             appUserService.singUpUser(appUser);
-        }catch (UserAlreadyExistException e){
+        } catch (UserAlreadyExistException e) {
             result.rejectValue("username",
                     "appUser.getUsername()", "Username already exist");
             return "registration";
@@ -50,14 +55,16 @@ public class AppUserController {
     @GetMapping("/showFormForUpdate")
     public String showFormForUpdate(@RequestParam("userId") Long theId,
                                     Model theModel) {
-        // get the employee from the service
         AppUser appUser = appUserService.findById(theId);
         // set employee as a model attribute to pre-populate the form
         theModel.addAttribute("appUser", appUser);
-
         // send over to our form
         return "registration";
     }
 
-
+    @GetMapping("/delete")
+    public String delete(@RequestParam("userId") Long theId) {
+        appUserService.deleteById(theId);
+        return "redirect:/users/list";
+    }
 }

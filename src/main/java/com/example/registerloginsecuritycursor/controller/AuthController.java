@@ -1,17 +1,19 @@
 package com.example.registerloginsecuritycursor.controller;
 
+import com.example.registerloginsecuritycursor.appuser.AppUser;
 import com.example.registerloginsecuritycursor.appuser.AppUserRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/auth")
 @AllArgsConstructor
 public class AuthController {
-
-    private final AppUserRepo appUserRepo;
 
     @GetMapping("/welcome")
     public String getWelcomePage() {
@@ -23,27 +25,14 @@ public class AuthController {
     public String getLoginPage() {
         return "login";
     }
-
-
+    @RequestMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login";
+    }
     @GetMapping("/success")
     public String getSuccessPage() {
         return "success";
     }
-
-    @GetMapping("/error")
-    public String getErrorPage() {
-        return "error_page";
     }
 
-
-//    @GetMapping("/register")
-//    public String getRegisterPage(Model model) {
-//        model.addAttribute("user", new AppUser());
-//        return "registration";
-//    }
-//    @PostMapping("/process_register")
-//    public String processRegister(RegistrationRequest user) {
-//        registrationService.register(user);
-//        return "success";
-//    }
-}
